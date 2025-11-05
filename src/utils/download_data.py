@@ -1,15 +1,19 @@
 """
-Download EPA GHGRP emissions data from the EPA website.
+Load EPA GHGRP emissions data from pre-processed files.
 
-This script downloads facility-level greenhouse gas emissions data 
-from the EPA Greenhouse Gas Reporting Program (GHGRP).
+This script works with the EPA data pipeline output structure:
+- out_epa/raw/: Raw EPA downloads
+- out_epa/: Processed files including training_facility_year.csv
+
+If processed files don't exist, creates sample data for development.
 """
 
 import os
-import requests
+import json
 import pandas as pd
+import numpy as np
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict
 import logging
 
 # Setup logging
@@ -17,28 +21,38 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 
-class EPADataDownloader:
-    """Download and save EPA GHGRP emissions data."""
+class EPADataLoader:
+    """Load pre-processed EPA GHGRP emissions data."""
     
-    def __init__(self, output_dir: str = "data/raw"):
+    def __init__(self, data_dir: str = "out_epa"):
         """
-        Initialize the EPA data downloader.
+        Initialize the EPA data loader.
         
         Args:
-            output_dir: Directory to save downloaded data
+            data_dir: Directory containing processed EPA data files
         """
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+        self.data_dir = Path(data_dir)
+        self.raw_dir = self.data_dir / "raw"
         
-        # EPA GHGRP Data Portal URLs
-        # Note: These are example URLs - update with actual EPA data portal endpoints
-        self.base_url = "https://data.epa.gov/efservice/"
-        self.data_files = {
-            "emissions": "V_GHG_EMITTER_FACILITIES/CSV",
-            "facilities": "PUB_DIM_FACILITY/CSV",
-        }
+        # Create directories if they don't exist
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.raw_dir.mkdir(parents=True, exist_ok=True)
+        
     
-    def download_file(self, url: str, filename: str) -> Optional[pd.DataFrame]:
+    def check_processed_files_exist(self) -> bool:
+        """Check if all required processed files exist."""
+        required_files = [
+            "training_facility_year.csv",
+            "sector_year_totals.csv",
+            "splits_years.json"
+        ]
+        
+        for file in required_files:
+            if not (self.data_dir / file).exists():
+                return False
+        return True
+    
+    def load_training_data(self) -> pd.DataFrame:
         """
         Download a file from EPA and save it.
         
