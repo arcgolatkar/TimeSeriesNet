@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# PyTorch
+*.pth
+*.pt
+*.ckpt
+
+# Data files (large)
+data/raw/*.csv
+data/processed/*.pkl
+data/processed/*.h5
+
+# Results (can be regenerated)
+results/checkpoints/*.ckpt
+results/logs/
+mlruns/
+lightning_logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+
+# Model outputs (keep structure, ignore contents)
+!results/figures/.gitkeep
+!results/metrics/.gitkeep
+!results/checkpoints/.gitkeep
+
+# Environment variables
+.env
+.env.local
+
+# Documentation builds
+_build/
+*.pdf
+*.aux
+*.out
+*.toc
+

@@ -1,0 +1,39 @@
+# LSTM Baseline Configuration
+
+model:
+  name: "LSTM"
+  input_size: 1  # Number of features per timestep
+  hidden_size: 128
+  num_layers: 3
+  dropout: 0.2
+  bidirectional: false
+  
+data:
+  data_dir: "data/processed"
+  sequence_length: 10
+  forecast_horizon: 1
+  train_years: [2010, 2019]
+  val_years: [2020, 2021]
+  test_years: [2022, 2023]
+  batch_size: 64
+  num_workers: 4
+
+training:
+  max_epochs: 150
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  optimizer: "adam"
+  scheduler: "step"
+  step_size: 30
+  gamma: 0.5
+  gradient_clip_val: 1.0
+  early_stopping_patience: 15
+
+logging:
+  experiment_name: "lstm_baseline"
+  log_dir: "results/logs"
+  checkpoint_dir: "results/checkpoints"
+  
+reproducibility:
+  seed: 42
+

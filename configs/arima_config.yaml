@@ -1,0 +1,34 @@
+# ARIMA/SARIMA Configuration
+
+model:
+  name: "ARIMA"
+  # Auto ARIMA will search for best parameters
+  auto_arima: true
+  seasonal: true
+  m: 1  # Seasonal period (1 for annual data)
+  
+  # Manual ARIMA parameters (if auto_arima: false)
+  order: [2, 1, 2]  # (p, d, q)
+  seasonal_order: [1, 0, 1, 1]  # (P, D, Q, m)
+  
+  # Search ranges for auto ARIMA
+  max_p: 5
+  max_d: 2
+  max_q: 5
+  max_P: 2
+  max_D: 1
+  max_Q: 2
+
+data:
+  data_dir: "data/processed"
+  train_years: [2010, 2019]
+  val_years: [2020, 2021]
+  test_years: [2022, 2023]
+
+logging:
+  experiment_name: "arima_baseline"
+  results_dir: "results/metrics"
+
+reproducibility:
+  seed: 42
+

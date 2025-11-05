@@ -1,0 +1,76 @@
+# Multi-Scale Transformer Configuration
+
+model:
+  name: "MultiScaleTransformer"
+  
+  # Fine-scale encoder
+  fine_encoder:
+    d_model: 256
+    nhead: 8
+    num_layers: 4
+    dim_feedforward: 1024
+    dropout: 0.1
+    activation: "gelu"
+  
+  # Coarse-scale encoder
+  coarse_encoder:
+    d_model: 256
+    nhead: 8
+    num_layers: 4
+    dim_feedforward: 1024
+    dropout: 0.1
+    activation: "gelu"
+    downsample_factor: 3  # Aggregate every 3 years
+  
+  # Cross-scale fusion
+  fusion:
+    fusion_method: "cross_attention"  # Options: cross_attention, concat, add
+    dropout: 0.1
+  
+  # Hierarchical decoder
+  decoder:
+    d_model: 256
+    nhead: 8
+    num_layers: 3
+    dim_feedforward: 1024
+    dropout: 0.1
+    hierarchical_levels: ["facility", "sector", "national"]
+
+data:
+  data_dir: "data/processed"
+  sequence_length: 10  # Number of years to look back
+  forecast_horizon: 1  # Number of years to predict
+  train_years: [2010, 2019]
+  val_years: [2020, 2021]
+  test_years: [2022, 2023]
+  batch_size: 64
+  num_workers: 4
+  
+training:
+  max_epochs: 200
+  learning_rate: 0.0001
+  weight_decay: 0.01
+  optimizer: "adamw"
+  scheduler: "cosine"  # Options: cosine, step, plateau
+  warmup_epochs: 10
+  gradient_clip_val: 1.0
+  early_stopping_patience: 20
+  
+  # Loss weights
+  loss_weights:
+    fine_level: 1.0
+    coarse_level: 0.5
+    hierarchical_consistency: 0.3
+  
+logging:
+  experiment_name: "mst_baseline"
+  log_dir: "results/logs"
+  checkpoint_dir: "results/checkpoints"
+  save_top_k: 3
+  monitor: "val_loss"
+  mode: "min"
+  
+reproducibility:
+  seed: 42
+  deterministic: true
+

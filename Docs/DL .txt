@@ -1,0 +1,164 @@
+﻿Project Proposal
+Project Proposal: Multi-Scale Transformer for U.S. Greenhouse
+Gas Emission Forecasting Using EPA GHGRP Data
+Project Group -
+Name UID
+	
+
+	Shyam Solanke 121127761
+	
+
+	Ninad Wadode 121317674
+	
+
+	Saanika Patil 120414893
+	
+
+	Archit Golatkar 121305282
+	
+
+	Sriniketh Shankar 121113580
+	
+
+	Professor - Samyet Ayhan
+Course - MSML/DATA 612 Deep Learning
+Abstract
+This project develops a Multi-Scale Transformer (MST) to forecast U.S. greenhouse gas emissions
+using the EPA GHGRP dataset. The model learns both short-term variations and long-term trends
+across facility, sector, and national levels through hierarchical attention and cross-scale fusion,
+providing more accurate and consistent emission forecasts than traditional models.
+Background and Motivation
+Accurate GHG emission forecasting is essential for environmental planning, emission trading, and
+compliance monitoring. Governments and industries rely on these forecasts to evaluate progress
+toward reduction targets and to design new mitigation policies.
+However, emission patterns vary at multiple temporal and spatial scales. For instance, facility-level
+emissions can fluctuate annually based on production volume, while sector-level and national totals
+evolve more gradually. Traditional forecasting models such as ARIMA or regression fail to capture
+these hierarchical dependencies.
+Recent progress in Transformer architectures offers a new way to handle such multi-scale
+dependencies in time series data. A Multi-Scale Transformer allows the model to jointly learn
+fine-grained and coarse-grained patterns, fusing information across levels through attention
+mechanisms. Applying this approach to EPA’s GHGRP dataset can reveal new insights into how
+emissions evolve across industries and regions
+Problem Statement
+Greenhouse gas emissions vary across time and sectors, reflecting both short-term operational
+changes and long-term industrial trends. Traditional models often fail to capture these complex,
+multi-scale patterns and hierarchical relationships between facility, sector, and national emission
+levels.
+This project aims to build a Multi-Scale Transformer that learns both fine-grained and broad emissionpatterns from the EPA GHGRP dataset, enabling accurate and consistent forecasting across different
+temporal and spatial scales.
+Objectives
+●
+●
+●
+●
+●
+Prepare and align GHGRP data for facility, sector, and national time series (2010–2023).
+Develop a Multi-Scale Transformer to model short-term variations and long-term trends.
+Ensure forecasts at facility and sector levels aggregate correctly to national totals.
+Evaluate model performance using temporal backtesting and spatial generalization.
+Compare accuracy against baseline models such as ARIMA, Prophet, and LSTM.
+Inputs:
+Facility-level data from the EPA GHGRP, including location, industry sector, reporting year, and
+annual emissions by gas type (CO₂, CH₄, N₂O).
+Outputs:
+Predicted total annual GHG emissions (CO₂e) at three levels — facility, sector, and national —
+ensuring that lower-level forecasts aggregate consistently to higher levels.
+Data Source: U.S. EPA Greenhouse Gas Reporting Program (GHGRP) — Emissions by Location
+(https://www.epa.gov/ghgreporting/ghgrp-emissions-location)
+Methodology
+The Multi-Scale Transformer (MST) extends the standard Transformer to learn from both fine- and
+coarse-scale sequences:
+●
+●
+●
+●
+Fine-scale encoder: models short-term, year-to-year emission changes using local attention.
+Coarse-scale encoder: captures long-term sectoral or structural trends via downsampled
+input sequences.
+Cross-scale fusion layer: combines information between fine and coarse representations
+using cross-attention.
+Hierarchical decoder: enforces aggregation consistency so that facility predictions roll up
+correctly to sector and national levels.
+Loss and Optimization
+A multi-scale loss will combine fine- and coarse-level forecast accuracy.
+Regularization methods such as dropout and weight decay will prevent overfitting.
+Optimization will use AdamW with learning-rate scheduling.
+Baselines
+Classical baselines will include ARIMA, SARIMA, and Prophet.
+Deep baselines will include LSTM and GRU networks trained on the same time frames.
+Implementation Framework●
+●
+●
+●
+●
+Framework: PyTorch with PyTorch Lightning for structured training and experiment
+management.
+Attention Optimization: Use xFormers for efficient multi-head and local attention operations.
+Baseline Models: Implement ARIMA, Prophet, and LSTM using Statsmodels and PyTorch for
+comparison.
+Tracking: Log experiments, metrics, and artifacts with MLflow or Weights & Biases (W&B).
+Hardware: Train on single or multi-GPU setup for national-scale forecasting.
+Validation and Metrics
+1.) A rolling-window backtesting strategy will evaluate how well the model generalizes to unseen
+future years.
+2.) Train on emissions from certain regions or sectors and test on others to assess spatial
+generalization.
+3.) Accuracy Metrics: Model performance will be measured using MAE, sMAPE, and MASE to
+evaluate both absolute and relative forecast errors.
+4.) Consistency Check: Forecasts will be verified to ensure facility-level predictions correctly
+aggregate to sector and national totals.
+Expected Outcomes and Contributions
+1.) A unified multi-scale Transformer capable of forecasting annual GHG emissions across
+multiple industrial sectors and regions.
+2.) Demonstration of hierarchical consistency and improved accuracy compared to standard
+forecasting methods.
+3.) A reproducible pipeline for emission trend analysis using open-source data (EPA GHGRP).
+4.) Insight into emission dynamics at different scales, supporting future data-driven environmental
+modeling.
+References
+1.) EPA Greenhouse Gas Reporting Program (GHGRP) — Emissions by Location Dataset.
+https://www.epa.gov/ghgreporting/ghgrp-emissions-location
+2.) Vaswani, A. et al. (2017). Attention Is All You Need.
+Advances in Neural Information Processing Systems (NeurIPS).
+https://arxiv.org/abs/1706.03762
+3.) Zhou, H. et al. (2021). Informer: Beyond Efficient Transformer for Long Sequence Forecasting.
+AAAI Conference on Artificial Intelligence.
+https://arxiv.org/abs/2012.07436
+4.) Li, S. et al. (2021). Autoformer: Decomposition Transformers with Auto-Correlation for
+Long-Term Series Forecasting. Advances in Neural Information Processing Systems
+(NeurIPS). https://arxiv.org/abs/2106.13008
+
+
+Guidelines Interim Report
+1. For Submission:
+You are expected to submit both a report and a slide deck.
+* The Report (PDF) will cover all detailed aspects of your project progress so far, including methodology, challenges, and results. It's like an extended version/progress of your initial proposal.
+* The presentation slides (PPT/PDF) should be a concise, Just Visual summary of your Architecture, model performance, evaluation results e.t.c. High-level and visually clean.
+
+2. Presentation and Report Quality:
+This step evaluates how well you communicate your progress:
+   * Make sure the Report and slides are typo free, grammatically correct, and well structured, and detailed explanation in Report.
+   * In slides, think like how you presented in your Paper Review, a High level description, just include Tables, graphs, or figures and their description. It should clearly show your current results (such as evaluation metrics, system architecture, model performance etc, that's ready and visually representable).
+ 
+Sample format of your report could be like:
+   * Problem statement and motivation
+   * Your dataset and preprocessing steps
+   * Model architecture and implementation details
+   * Any current results or insights
+   * Future plan and next steps
+   * Citations for any papers, tools, or libraries you reference
+
+
+In the report.
+[1] Data prep/curation - time sequence data (10)
+   Amount of data collected, processed and curated. 
+[2] Difficulty of NN design and implementation (25)
+   You are allowed to follow one of the existing implementations so long as you cite the resource and adapt it to your problem space. Complexity of your model for an increased performance may be the key.
+[3] Working, clean, readable code (without any extra work to reproduce the same results) (20)
+[4] High performance (25)
+[5] Presentation (typo-free, grammatically correct report and presentation that includes necessary tables and figures illustrating the novelty and evaluation results) (10)
+[6] References (literature review/related work) (10)
+
+
+Project Interim Report
