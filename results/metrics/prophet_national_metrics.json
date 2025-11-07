@@ -1,0 +1,56 @@
+{
+  "metrics": {
+    "MAE": 0.0027580666973126,
+    "MSE": 1.061277321719512e-05,
+    "RMSE": 0.0032577251598615744,
+    "sMAPE": 0.018289000955904054,
+    "MAPE": 0.018287384642900244,
+    "R2": -11.947253936117248,
+    "MASE": 1.1025812489816225
+  },
+  "predictions": [
+    15.077434578446002,
+    15.08253590490837,
+    15.080324478317142
+  ],
+  "actuals": [
+    15.08253590490837,
+    15.080324478317142,
+    15.081285925355482
+  ],
+  "config": {
+    "model": {
+      "name": "Prophet",
+      "growth": "linear",
+      "changepoint_prior_scale": 0.05,
+      "seasonality_prior_scale": 10.0,
+      "holidays_prior_scale": 10.0,
+      "seasonality_mode": "additive",
+      "yearly_seasonality": false,
+      "weekly_seasonality": false,
+      "daily_seasonality": false
+    },
+    "data": {
+      "data_dir": "src/models/data/processed",
+      "train_years": [
+        2010,
+        2019
+      ],
+      "val_years": [
+        2020,
+        2021
+      ],
+      "test_years": [
+        2021,
+        2023
+      ]
+    },
+    "logging": {
+      "experiment_name": "prophet_baseline",
+      "results_dir": "results/metrics"
+    },
+    "reproducibility": {
+      "seed": 42
+    }
+  }
+}

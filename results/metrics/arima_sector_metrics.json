@@ -1,0 +1,58 @@
+{
+  "overall_metrics": {
+    "MAE": 4.915266139956045,
+    "MSE": 357.865310109721,
+    "RMSE": 18.91732830263621,
+    "sMAPE": 9.983005822355535,
+    "MAPE": 36.54592422854295,
+    "R2": -2033000.7412689673
+  },
+  "num_series": 5,
+  "config": {
+    "model": {
+      "name": "ARIMA",
+      "auto_arima": true,
+      "seasonal": true,
+      "m": 1,
+      "order": [
+        2,
+        1,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "max_p": 5,
+      "max_d": 2,
+      "max_q": 5,
+      "max_P": 2,
+      "max_D": 1,
+      "max_Q": 2
+    },
+    "data": {
+      "data_dir": "src/models/data/processed",
+      "train_years": [
+        2010,
+        2019
+      ],
+      "val_years": [
+        2020,
+        2021
+      ],
+      "test_years": [
+        2021,
+        2023
+      ]
+    },
+    "logging": {
+      "experiment_name": "arima_baseline",
+      "results_dir": "results/metrics"
+    },
+    "reproducibility": {
+      "seed": 42
+    }
+  }
+}
