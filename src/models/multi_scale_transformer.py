@@ -12,7 +12,7 @@ import math
 from typing import Dict, Tuple, Optional
 import sys
 sys.path.append('..')
-from utils.metrics import compute_all_metrics, hierarchical_consistency_error
+from metrics import compute_all_metrics, hierarchical_consistency_error
 
 
 class PositionalEncoding(nn.Module):

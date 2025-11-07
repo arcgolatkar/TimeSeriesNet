@@ -46,6 +46,7 @@ data/processed/*.h5
 results/checkpoints/*.ckpt
 results/logs/
 mlruns/
+src/models/data/
 lightning_logs/
 
 # IDE

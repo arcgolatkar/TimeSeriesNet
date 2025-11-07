@@ -13,9 +13,9 @@ from pathlib import Path
 import sys
 sys.path.append('..')
 
-from models.multi_scale_transformer import MultiScaleTransformer
-from utils.data_loader import create_dataloaders
-from utils.metrics import compute_all_metrics
+from multi_scale_transformer import MultiScaleTransformer
+from data_loader import create_dataloaders
+from metrics import compute_all_metrics
 
 
 class MSTLightningModule(pl.LightningModule):
@@ -313,10 +313,22 @@ def train_mst(config_path: str):
     )
     
     # Trainer
+    # trainer = pl.Trainer(
+    #     max_epochs=config['training']['max_epochs'],
+    #     accelerator='auto',
+    #     devices=1,
+    #     callbacks=[checkpoint_callback, early_stopping],
+    #     logger=logger,
+    #     gradient_clip_val=config['training']['gradient_clip_val'],
+    #     deterministic=config['reproducibility']['deterministic']
+    # )
+    num_gpus = torch.cuda.device_count()
+
     trainer = pl.Trainer(
         max_epochs=config['training']['max_epochs'],
-        accelerator='auto',
-        devices=1,
+        accelerator='gpu' if num_gpus > 0 else 'cpu',
+        devices=num_gpus if num_gpus > 0 else 1,   # e.g., 1 or all GPUs
+        precision='16-mixed' if num_gpus > 0 else '32-true',  # AMP on GPU
         callbacks=[checkpoint_callback, early_stopping],
         logger=logger,
         gradient_clip_val=config['training']['gradient_clip_val'],

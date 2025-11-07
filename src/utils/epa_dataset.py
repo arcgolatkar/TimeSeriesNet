@@ -56,6 +56,11 @@ class EPAFacilityDataset(Dataset):
             self.feature_cols = feature_cols
         
         logger.info(f"Using {len(self.feature_cols)} feature columns")
+
+        # rename years column to REPORTING_YEAR for consistency
+        self.training_data = training_data.rename(columns={'year': 'REPORTING_YEAR'})
+        sector_data = sector_data.rename(columns={'year': 'REPORTING_YEAR'})
+        self.sector_data = sector_data.rename(columns={'sector_co2e': 'co2e_total'})
         
         # Filter data for specified years
         self.data = training_data[training_data['REPORTING_YEAR'].isin(years)].copy()

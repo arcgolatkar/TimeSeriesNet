@@ -73,6 +73,11 @@ class EPADataLoader:
         logger.info(f"Loading training data from {path}")
         
         df = pd.read_csv(path)
+        # rename year column to REPORTING_YEAR
+        if 'year' in df.columns:
+            df = df.rename(columns={'year': 'REPORTING_YEAR'})
+        if 'fac_id' in df.columns:
+            df = df.rename(columns={'fac_id': 'FACILITY_ID'})
         logger.info(f"Loaded {len(df)} rows, {len(df.columns)} columns")
         logger.info(f"Years: {df['REPORTING_YEAR'].min()} - {df['REPORTING_YEAR'].max()}")
         logger.info(f"Facilities: {df['FACILITY_ID'].nunique()}")
@@ -90,6 +95,9 @@ class EPADataLoader:
         logger.info(f"Loading sector totals from {path}")
         
         df = pd.read_csv(path)
+        # rename sector_name to sector if needed
+        if 'sector_name' in df.columns:
+            df = df.rename(columns={'sector_name': 'sector'})
         logger.info(f"Loaded {len(df)} sector-year records")
         
         return df

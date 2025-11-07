@@ -35,7 +35,7 @@ class GHGDataPreprocessor:
         'N2O': 298.0,
     }
     
-    def __init__(self, raw_data_dir: str = "data/raw", 
+    def __init__(self, raw_data_dir: str = "out_epa/output", 
                  processed_data_dir: str = "data/processed"):
         """
         Initialize the preprocessor.
