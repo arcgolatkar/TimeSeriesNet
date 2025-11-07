@@ -20,10 +20,10 @@ model:
   max_Q: 2
 
 data:
-  data_dir: "data/processed"
-  train_years: [2010, 2019]
-  val_years: [2020, 2021]
-  test_years: [2022, 2023]
+  data_dir: "src/models/data/processed"
+  train_years: [2010, 2019]  # Train on 2010-2019
+  val_years: [2020, 2021]    # Validate on 2020-2021  
+  test_years: [2021, 2023]   # Test on 2021-2023 (overlaps for fair comparison with LSTM)
 
 logging:
   experiment_name: "arima_baseline"

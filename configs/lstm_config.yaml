@@ -9,14 +9,14 @@ model:
   bidirectional: false
   
 data:
-  data_dir: "data/processed"
-  sequence_length: 10
+  data_dir: "src/models/data/processed"
+  sequence_length: 5  # 5 input years + 1 output = 6 years minimum needed
   forecast_horizon: 1
-  train_years: [2010, 2019]
-  val_years: [2020, 2021]
-  test_years: [2022, 2023]
+  train_years: [2010, 2017]  # 8 years for training (creates ~3 samples per series)
+  val_years: [2014, 2020]    # 7 years for validation (includes some train overlap for context)
+  test_years: [2017, 2023]   # 7 years for testing (includes some val overlap for context)
   batch_size: 64
-  num_workers: 4
+  num_workers: 0  # Set to 0 for compatibility
 
 training:
   max_epochs: 150
